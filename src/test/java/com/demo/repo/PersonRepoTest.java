@@ -1,0 +1,44 @@
+package com.demo.repo;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import com.cog.entites.Person;
+import com.cog.repo.PersonRepo;
+
+
+@SpringBootTest
+public class PersonRepoTest {
+	
+	@Autowired
+	private PersonRepo personRepo;
+	
+	@Test
+	void isPersonExistsById() {
+		Person person = new Person(5,"Peter","Delhi");
+		personRepo.save(person);
+		
+	Boolean actualResult = personRepo.isPersonExitsById(5);
+	
+	assertThat(actualResult).isTrue();
+		
+		
+	}
+	
+	@AfterEach
+	void tearDown() {
+		System.out.println("Tearing down");
+		personRepo.deleteAll();
+	}
+	
+	@BeforeEach
+	void setUp() {
+		System.out.println("setting up!");
+	}
+
+}
